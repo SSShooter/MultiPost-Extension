@@ -39,6 +39,19 @@ chrome.runtime.onInstalled.addListener((object) => {
   }
   initDefaultTrustedDomains();
   chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: false });
+  chrome.contextMenus.removeAll(() => {
+    chrome.contextMenus.create({
+      id: "multipost-auto-publish",
+      title: chrome.i18n.getMessage("contextMenuAutoPublish"),
+      contexts: ["page", "selection", "link", "image"],
+    });
+  });
+});
+
+chrome.contextMenus.onClicked.addListener((info) => {
+  if (info.menuItemId === "multipost-auto-publish") {
+    chrome.tabs.create({ url: chrome.runtime.getURL("tabs/auto-publish.html") });
+  }
 });
 
 // Listen Message || 监听消息 || START

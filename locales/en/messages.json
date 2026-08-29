@@ -1177,5 +1177,37 @@
   "platformTencentVideo": {
     "message": "Tencent Video",
     "description": "Tencent Video platform name"
+  },
+  "autoPublishPageTitle": {
+    "message": "Auto Publish",
+    "description": "Auto publish page title"
+  },
+  "autoPublishSelectAll": {
+    "message": "Select All",
+    "description": "Select all platforms in group button text"
+  },
+  "autoPublishPublish": {
+    "message": "Trigger Auto Publish",
+    "description": "Trigger auto publish button text"
+  },
+  "autoPublishTriggered": {
+    "message": "Auto publish triggered, opening publish window...",
+    "description": "Notice text after auto publish is triggered"
+  },
+  "autoPublishCount": {
+    "message": "$1 platforms selected",
+    "description": "Selected platform count hint"
+  },
+  "autoPublishImageHint": {
+    "message": "Paste or drag & drop images",
+    "description": "Auto publish page image upload hint"
+  },
+  "contextMenuAutoPublish": {
+    "message": "Auto Publish",
+    "description": "Context menu auto publish entry"
+  },
+  "sidepanelOpenAutoPublish": {
+    "message": "Auto Publish",
+    "description": "Sidepanel button text to open auto publish page"
   }
 }

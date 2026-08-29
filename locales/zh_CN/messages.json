@@ -1151,5 +1151,37 @@
   "platformTencentVideo": {
     "message": "腾讯视频",
     "description": "腾讯视频 平台名称"
+  },
+  "autoPublishPageTitle": {
+    "message": "自动发布",
+    "description": "自动发布页面标题"
+  },
+  "autoPublishSelectAll": {
+    "message": "全选",
+    "description": "按分组全选平台按钮文本"
+  },
+  "autoPublishPublish": {
+    "message": "触发自动发布",
+    "description": "触发自动发布按钮文本"
+  },
+  "autoPublishTriggered": {
+    "message": "已触发自动发布，正在打开发布窗口...",
+    "description": "触发自动发布后的提示文本"
+  },
+  "autoPublishCount": {
+    "message": "已选 $1 个平台",
+    "description": "已选择平台数量提示"
+  },
+  "autoPublishImageHint": {
+    "message": "支持粘贴 / 拖拽图片",
+    "description": "自动发布页面图片上传提示"
+  },
+  "contextMenuAutoPublish": {
+    "message": "自动发布",
+    "description": "右键菜单自动发布入口"
+  },
+  "sidepanelOpenAutoPublish": {
+    "message": "自动发布",
+    "description": "侧边栏打开自动发布页面的按钮文本"
   }
 }
