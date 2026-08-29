@@ -1,15 +1,11 @@
 import { Button } from "@heroui/react";
-import { RefreshCw, Rocket, X } from "lucide-react";
+import { RefreshCw, X } from "lucide-react";
 import type React from "react";
 import { useEffect, useState } from "react";
 import type { TabManagerMessage } from "~background/services/tabs";
 
 function TabsManager() {
   const [tabGroup, setTabGroup] = useState<TabManagerMessage[]>([]);
-
-  const handleOpenAutoPublish = () => {
-    chrome.tabs.create({ url: chrome.runtime.getURL("tabs/auto-publish.html") });
-  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -59,17 +55,6 @@ function TabsManager() {
 
   return (
     <div className="p-4">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-base font-semibold">{chrome.i18n.getMessage("sidepanelTabsManagerTitle")}</h2>
-        <Button
-          size="sm"
-          color="primary"
-          variant="flat"
-          onPress={handleOpenAutoPublish}
-          startContent={<Rocket className="size-4" />}>
-          {chrome.i18n.getMessage("sidepanelOpenAutoPublish")}
-        </Button>
-      </div>
       {nonEmptyGroups.length > 0 ? (
         nonEmptyGroups.map((group, groupIndex) => (
           <div key={groupIndex} className="mb-6">

@@ -1179,9 +1179,5 @@
   "contextMenuAutoPublish": {
     "message": "自动发布",
     "description": "右键菜单自动发布入口"
-  },
-  "sidepanelOpenAutoPublish": {
-    "message": "自动发布",
-    "description": "侧边栏打开自动发布页面的按钮文本"
   }
 }

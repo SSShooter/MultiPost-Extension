@@ -1205,9 +1205,5 @@
   "contextMenuAutoPublish": {
     "message": "Auto Publish",
     "description": "Context menu auto publish entry"
-  },
-  "sidepanelOpenAutoPublish": {
-    "message": "Auto Publish",
-    "description": "Sidepanel button text to open auto publish page"
   }
 }
