@@ -852,6 +852,24 @@
   "extraConfigOkjikeSaveConfig": {
     "message": "保存配置"
   },
+  "extraConfigRedditConfigureSubreddit": {
+    "message": "配置 Subreddit"
+  },
+  "extraConfigRedditSelectSubreddit": {
+    "message": "选择 Subreddit"
+  },
+  "extraConfigRedditEnterSubredditName": {
+    "message": "输入 Subreddit 名称（无需 r/ 前缀）"
+  },
+  "extraConfigRedditAdd": {
+    "message": "添加"
+  },
+  "extraConfigRedditCancel": {
+    "message": "取消"
+  },
+  "extraConfigRedditSaveConfig": {
+    "message": "保存配置"
+  },
   "extraConfigWebhookConfigure": {
     "message": "配置Webhook"
   },

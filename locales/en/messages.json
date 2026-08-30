@@ -878,6 +878,24 @@
   "extraConfigOkjikeSaveConfig": {
     "message": "Save Configuration"
   },
+  "extraConfigRedditConfigureSubreddit": {
+    "message": "Configure Subreddit"
+  },
+  "extraConfigRedditSelectSubreddit": {
+    "message": "Select Subreddit"
+  },
+  "extraConfigRedditEnterSubredditName": {
+    "message": "Enter subreddit name (no r/ prefix needed)"
+  },
+  "extraConfigRedditAdd": {
+    "message": "Add"
+  },
+  "extraConfigRedditCancel": {
+    "message": "Cancel"
+  },
+  "extraConfigRedditSaveConfig": {
+    "message": "Save Configuration"
+  },
   "extraConfigWebhookConfigure": {
     "message": "Configure Webhook"
   },

@@ -5,6 +5,26 @@ import { getExtraConfigFromPlatformInfo, getExtraConfigFromPlatformInfos } from 
 import { PodcastInfoMap } from "./podcast";
 import { VideoInfoMap } from "./video";
 
+export interface RedditExtraConfig {
+  selectedSubreddit?: string;
+  historySubreddits?: string[];
+}
+
+// Reddit：跳转时直接打开对应 subreddit 的发布页以预选社区
+export function getRedditSubmitUrl(platform: SyncDataPlatform): string {
+  const config = (platform.extraConfig as RedditExtraConfig) || {};
+  const subreddit = (config.selectedSubreddit || "").trim().replace(/^r\//i, "");
+  return subreddit
+    ? `https://www.reddit.com/r/${encodeURIComponent(subreddit)}/submit?type=IMAGE`
+    : "https://www.reddit.com/submit?type=IMAGE";
+}
+
+export function hasRedditSubreddit(platform: SyncDataPlatform): boolean {
+  const config = (platform.extraConfig as RedditExtraConfig) || {};
+  const subreddit = (config.selectedSubreddit || "").trim().replace(/^r\//i, "");
+  return subreddit.length > 0;
+}
+
 export interface SyncDataPlatform {
   name: string;
   injectUrl?: string;
@@ -155,7 +175,9 @@ export async function createTabsForPlatforms(data: SyncData) {
           });
         }
       } else {
-        if (info.injectUrl) {
+        if (info.name === "DYNAMIC_REDDIT" && hasRedditSubreddit(info)) {
+          tab = await chrome.tabs.create({ url: getRedditSubmitUrl(info) });
+        } else if (info.injectUrl) {
           tab = await chrome.tabs.create({ url: info.injectUrl });
         } else {
           const platformInfo = infoMap[info.name];

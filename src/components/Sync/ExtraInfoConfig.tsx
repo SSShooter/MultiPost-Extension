@@ -1,6 +1,7 @@
 import type { PlatformInfo, SyncData } from "~sync/common";
 import ArticleWordpress from "./Modals/ArticleWordpress";
 import DynamicOkjike from "./Modals/DynamicOkjike";
+import DynamicReddit from "./Modals/DynamicReddit";
 import DynamicWebhook from "./Modals/DynamicWebhook";
 import DynamicZsxq from "./Modals/DynamicZSXQ";
 
@@ -15,6 +16,9 @@ export default function ExtraInfoConfig({ platformInfo }: ExtraInfoConfigProps) 
   }
   if (platformInfo.name === "DYNAMIC_OKJIKE") {
     return <DynamicOkjike platformKey={platformInfo.name} />;
+  }
+  if (platformInfo.name === "DYNAMIC_REDDIT") {
+    return <DynamicReddit platformKey={platformInfo.name} />;
   }
   if (platformInfo.name === "DYNAMIC_ZSXQ") {
     return <DynamicZsxq platformKey={platformInfo.name} />;
