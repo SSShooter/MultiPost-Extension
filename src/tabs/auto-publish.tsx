@@ -251,8 +251,6 @@ export default function AutoPublish() {
     try {
       await storage.set(STORAGE_KEY, formState.selectedPlatforms);
       chrome.runtime.sendMessage({ action: "MULTIPOST_EXTENSION_PUBLISH", data });
-      // 发布弹窗由 background 打开，此页面稍后自动关闭
-      setTimeout(() => window.close(), 1500);
     } catch (error) {
       console.error("触发自动发布失败:", error);
       setIsPublishing(false);
