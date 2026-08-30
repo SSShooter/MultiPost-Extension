@@ -54,7 +54,7 @@ export default function AutoPublish() {
     content: "",
     images: [],
     selectedPlatforms: [],
-    autoPublish: true,
+    autoPublish: false,
   });
   const [platforms, setPlatforms] = useState<PlatformInfo[]>([]);
   const [isPublishing, setIsPublishing] = useState(false);
@@ -223,7 +223,14 @@ export default function AutoPublish() {
   }, []);
 
   const handleClearAll = useCallback(async () => {
-    setFormState((prev) => ({ ...prev, title: "", content: "", images: [], selectedPlatforms: [], autoPublish: true }));
+    setFormState((prev) => ({
+      ...prev,
+      title: "",
+      content: "",
+      images: [],
+      selectedPlatforms: [],
+      autoPublish: false,
+    }));
     await storage.set(STORAGE_KEY, []);
   }, []);
 
