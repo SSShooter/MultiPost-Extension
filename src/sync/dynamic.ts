@@ -142,7 +142,7 @@ export const DynamicInfoMap: Record<string, PlatformInfo> = {
     faviconUrl: "https://static.licdn.com/aero-v1/sc/h/eahiplrwoq61f4uan012ia17i",
     iconifyIcon: "simple-icons:linkedin",
     platformName: chrome.i18n.getMessage("platformLinkedin"),
-    injectUrl: "https://www.linkedin.com/feed",
+    injectUrl: "https://www.linkedin.com/sharing/compose",
     injectFunction: DynamicLinkedin,
     tags: ["International"],
     accountKey: "linkedin",
