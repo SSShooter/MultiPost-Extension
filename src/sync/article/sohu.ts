@@ -3,7 +3,7 @@
  *
  * Sohu ARTICLE DOM fallback 路径实现。选择器与流程需线上回归验证。
  */
-import type { ArticleData, SyncData } from "~sync/common";
+import type { ArticleData, SyncData } from "../common";
 
 export async function ArticleSohu(data: SyncData) {
   const articleData = data.data as ArticleData;

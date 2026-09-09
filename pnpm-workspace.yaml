@@ -1,3 +1,10 @@
+overrides:
+  vite: 6.4.3
+allowBuilds:
+  '@biomejs/biome': true
+  '@heroui/shared-utils': true
+  esbuild: true
+  spawn-sync: true
 onlyBuiltDependencies:
   - '@heroui/shared-utils'
   - '@parcel/watcher'
@@ -6,3 +13,5 @@ onlyBuiltDependencies:
   - lmdb
   - msgpackr-extract
   - sharp
+patchedDependencies:
+  wxt@0.20.27: patches/wxt@0.20.27.patch

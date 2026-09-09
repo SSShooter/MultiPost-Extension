@@ -1,4 +1,4 @@
-import type { ArticleData, SyncData } from "~sync/common";
+import type { ArticleData, SyncData } from "../common";
 
 export async function ArticleJuejin(data: SyncData) {
   console.log("Juejin Article 函数被调用");

@@ -1,22 +1,8 @@
-import "~style.css";
-import cssText from "data-text:~style.css";
+import "../../style.css";
 import { Button, Checkbox, HeroUIProvider, Image } from "@heroui/react";
 import { Storage } from "@plasmohq/storage";
 import { CheckCircle2, Globe, Shield, ShieldAlert, XCircle } from "lucide-react";
 import { useEffect, useState } from "react";
-
-export function getShadowContainer() {
-  return document.querySelector("#test-shadow").shadowRoot.querySelector("#plasmo-shadow-container");
-}
-
-export const getShadowHostId = () => "test-shadow";
-
-export const getStyle = () => {
-  const style = document.createElement("style");
-
-  style.textContent = cssText;
-  return style;
-};
 
 interface TrustDomainParams {
   action: string;

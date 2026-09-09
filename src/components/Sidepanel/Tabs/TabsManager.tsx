@@ -2,7 +2,7 @@ import { Button } from "@heroui/react";
 import { RefreshCw, X } from "lucide-react";
 import type React from "react";
 import { useEffect, useState } from "react";
-import type { TabManagerMessage } from "~background/services/tabs";
+import type { TabManagerMessage } from "../../../background/services/tabs";
 
 function TabsManager() {
   const [tabGroup, setTabGroup] = useState<TabManagerMessage[]>([]);

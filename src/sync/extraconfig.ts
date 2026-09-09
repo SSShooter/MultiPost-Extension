@@ -1,5 +1,5 @@
 import { Storage } from "@plasmohq/storage";
-import { ping } from "~background/services/api";
+import { ping } from "../background/services/api";
 import type { PlatformInfo } from "./common";
 
 // 存储额外配置信息的键名

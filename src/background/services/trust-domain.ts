@@ -82,7 +82,7 @@ export const trustDomainMessageHandler = (request, sender, sendResponse) => {
         // 打开信任域名确认窗口
         chrome.windows
           .create({
-            url: chrome.runtime.getURL(`tabs/trust-domain.html#${encodedParams}`),
+            url: chrome.runtime.getURL(`/trust-domain.html#${encodedParams}`),
             type: "popup",
             width: 800,
             height: 600,

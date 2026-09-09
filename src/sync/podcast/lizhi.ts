@@ -1,4 +1,4 @@
-import type { PodcastData, SyncData } from "~sync/common";
+import type { PodcastData, SyncData } from "../common";
 
 export async function PodcastLiZhi(data: SyncData) {
   const { title, description, audio } = data.data as PodcastData;

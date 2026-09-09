@@ -1,4 +1,4 @@
-import type { AccountInfo } from "~sync/common";
+import type { AccountInfo } from "../common";
 
 export async function getXAccountInfo(): Promise<AccountInfo> {
   // 直接使用fetch API获取 X 页面HTML

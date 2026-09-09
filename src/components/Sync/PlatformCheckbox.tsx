@@ -1,6 +1,6 @@
 import { Checkbox, Image, Link } from "@heroui/react";
 import { Icon } from "@iconify/react";
-import type { PlatformInfo, SyncData } from "~sync/common";
+import type { PlatformInfo, SyncData } from "../../sync/common";
 import ExtraInfoConfig from "./ExtraInfoConfig";
 
 interface PlatformCheckboxProps {

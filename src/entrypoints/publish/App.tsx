@@ -1,5 +1,4 @@
-import "~style.css";
-import cssText from "data-text:~style.css";
+import "../../style.css";
 import { Button, HeroUIProvider, NumberInput, Progress, Switch, Tooltip } from "@heroui/react";
 import { Storage } from "@plasmohq/storage";
 import { RefreshCw, X } from "lucide-react";
@@ -14,7 +13,7 @@ import {
   type SyncDataPlatform,
   type VideoData,
   injectScriptsToTabs,
-} from "~sync/common";
+} from "../../sync/common";
 
 const storage = new Storage({
   area: "local",
@@ -23,18 +22,6 @@ const AUTO_CLOSE_KEY = "publish-auto-close";
 const AUTO_CLOSE_DELAY_KEY = "publish-auto-close-delay";
 const SYNC_CLOSE_TABS_KEY = "publish-sync-close-tabs";
 const DEFAULT_AUTO_CLOSE_DELAY = 3 * 60; // 3 minutes in seconds
-
-export function getShadowContainer() {
-  return document.querySelector("#test-shadow").shadowRoot.querySelector("#plasmo-shadow-container");
-}
-
-export const getShadowHostId = () => "test-shadow";
-
-export const getStyle = () => {
-  const style = document.createElement("style");
-  style.textContent = cssText;
-  return style;
-};
 
 // 聚焦到主窗口的函数
 const focusMainWindow = async () => {

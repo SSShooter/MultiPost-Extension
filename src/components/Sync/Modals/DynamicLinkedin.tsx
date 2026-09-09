@@ -1,8 +1,8 @@
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@heroui/react";
 import { Settings } from "lucide-react";
 import { useEffect, useState } from "react";
-import { parseLinkedinCompanyId } from "~sync/common";
-import { getExtraConfig, saveExtraConfig } from "~sync/extraconfig";
+import { parseLinkedinCompanyId } from "../../../sync/common";
+import { getExtraConfig, saveExtraConfig } from "../../../sync/extraconfig";
 
 interface LinkedinConfig {
   companyId: string;

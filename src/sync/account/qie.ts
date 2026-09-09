@@ -1,4 +1,4 @@
-import type { AccountInfo } from "~sync/common";
+import type { AccountInfo } from "../common";
 
 export async function getQiEAccountInfo(): Promise<AccountInfo> {
   try {

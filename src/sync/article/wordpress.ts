@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { ArticleData, FileData, SyncData } from "~sync/common";
+import type { ArticleData, FileData, SyncData } from "../common";
 
 export async function ArticleWordpress(data: SyncData) {
   console.debug("ArticleWordpress", data);

@@ -1,4 +1,4 @@
-import type { ArticleData, FileData, SyncData } from "~sync/common";
+import type { ArticleData, FileData, SyncData } from "../common";
 
 export async function ArticleSegmentfault(data: SyncData) {
   console.debug("ArticleSegmentfault", data);

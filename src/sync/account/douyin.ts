@@ -1,4 +1,4 @@
-import type { AccountInfo } from "~sync/common";
+import type { AccountInfo } from "../common";
 
 export async function getDouyinAccountInfo(): Promise<AccountInfo> {
   // 访问TikTok API获取用户信息

@@ -1,4 +1,4 @@
-import type { ArticleData, FileData, SyncData } from "~sync/common";
+import type { ArticleData, FileData, SyncData } from "../common";
 
 /**
  * Kaidiwang article publishing (experimental).

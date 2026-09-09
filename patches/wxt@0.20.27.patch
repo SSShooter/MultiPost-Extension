@@ -1,0 +1,13 @@
+diff --git a/dist/core/builders/vite/index.mjs b/dist/core/builders/vite/index.mjs
+index 2cf6574268d46e2269eebbe758dc7d08e38bde5d..090ba3f9b0f02aa1d7562346b3ca483464062ac4 100644
+--- a/dist/core/builders/vite/index.mjs
++++ b/dist/core/builders/vite/index.mjs
+@@ -311,7 +311,7 @@ async function removeEmptyDirs(dir) {
+ 		if ((await stat(filePath)).isDirectory()) await removeEmptyDirs(filePath);
+ 	}
+ 	try {
+-		await rmdir(dir);
++		if ((await readdir(dir)).length === 0) await rmdir(dir);
+ 	} catch {}
+ }
+ function isRolldownVersion(version) {

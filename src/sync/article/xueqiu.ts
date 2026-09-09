@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { ArticleData, SyncData } from "~sync/common";
+import type { ArticleData, SyncData } from "../common";
 
 export async function ArticleXueqiu(data: SyncData) {
   // 等待元素出现

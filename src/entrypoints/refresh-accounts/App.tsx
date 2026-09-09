@@ -1,30 +1,17 @@
-import "~style.css";
-import cssText from "data-text:~style.css";
+import "../../style.css";
 import { Button, HeroUIProvider, Image, Switch } from "@heroui/react";
 import { Storage } from "@plasmohq/storage";
 import { CheckCircle2, ExternalLink, Loader2, RefreshCw, XCircle } from "lucide-react";
 import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { refreshAccountInfoMap, refreshAllAccountInfo } from "~sync/account";
-import type { AccountInfo } from "~sync/common";
+import { refreshAccountInfoMap, refreshAllAccountInfo } from "../../sync/account";
+import type { AccountInfo } from "../../sync/common";
 
 const storage = new Storage({
   area: "local",
 });
 const AUTO_CLOSE_KEY = "refresh-accounts-auto-close";
 const AUTO_CLOSE_DELAY = 3000; // 3 seconds
-
-export function getShadowContainer() {
-  return document.querySelector("#test-shadow").shadowRoot.querySelector("#plasmo-shadow-container");
-}
-
-export const getShadowHostId = () => "test-shadow";
-
-export const getStyle = () => {
-  const style = document.createElement("style");
-  style.textContent = cssText;
-  return style;
-};
 
 interface AccountState {
   isLoading: boolean;

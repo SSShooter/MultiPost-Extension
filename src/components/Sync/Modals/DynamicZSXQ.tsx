@@ -1,7 +1,7 @@
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@heroui/react";
 import { Settings } from "lucide-react";
 import { useEffect, useState } from "react";
-import { getExtraConfig, saveExtraConfig } from "~sync/extraconfig";
+import { getExtraConfig, saveExtraConfig } from "../../../sync/extraconfig";
 
 interface ZsxqGroup {
   group_id: number;

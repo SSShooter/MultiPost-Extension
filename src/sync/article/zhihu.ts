@@ -1,4 +1,4 @@
-import type { ArticleData, SyncData } from "~sync/common";
+import type { ArticleData, SyncData } from "../common";
 
 export async function ArticleZhihu(data: SyncData) {
   console.debug("ArticleZhihu", data);

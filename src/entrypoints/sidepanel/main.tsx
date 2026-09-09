@@ -1,21 +1,8 @@
-import "~style.css";
-import cssText from "data-text:~style.css";
+import "../../style.css";
 import { HeroUIProvider } from "@heroui/react";
 import { useEffect, useState } from "react";
-import TabsManager from "~components/Sidepanel/Tabs/TabsManager";
-
-export function getShadowContainer() {
-  return document.querySelector("#test-shadow").shadowRoot.querySelector("#plasmo-shadow-container");
-}
-
-export const getShadowHostId = () => "test-shadow";
-
-export const getStyle = () => {
-  const style = document.createElement("style");
-
-  style.textContent = cssText;
-  return style;
-};
+import { createRoot } from "react-dom/client";
+import TabsManager from "../../components/Sidepanel/Tabs/TabsManager";
 
 function SidePanel() {
   const [isReady, setIsReady] = useState(false);
@@ -51,4 +38,7 @@ function SidePanel() {
   );
 }
 
-export default SidePanel;
+const root = document.getElementById("root");
+if (root) {
+  createRoot(root).render(<SidePanel />);
+}

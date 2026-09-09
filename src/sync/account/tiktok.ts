@@ -1,4 +1,4 @@
-import type { AccountInfo } from "~sync/common";
+import type { AccountInfo } from "../common";
 
 export async function getTiktokAccountInfo(): Promise<AccountInfo> {
   // 访问抖音创作者API获取用户信息

@@ -1,4 +1,4 @@
-import type { ArticleData, SyncData } from "~sync/common";
+import type { ArticleData, SyncData } from "../common";
 
 /**
  * 美篇/简篇文章发布(experimental,待线上验证)

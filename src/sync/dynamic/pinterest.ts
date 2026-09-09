@@ -1,5 +1,5 @@
 // Experimental publisher (待线上验证)
-import type { DynamicData, SyncData } from "~sync/common";
+import type { DynamicData, SyncData } from "../common";
 
 export async function DynamicPinterest(data: SyncData) {
   function waitForElement(selector: string, timeout = 15000): Promise<Element> {

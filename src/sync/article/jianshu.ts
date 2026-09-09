@@ -1,4 +1,4 @@
-import type { ArticleData, FileData, SyncData } from "~sync/common";
+import type { ArticleData, FileData, SyncData } from "../common";
 
 // 上传图片的配置接口
 interface UploadConfig {

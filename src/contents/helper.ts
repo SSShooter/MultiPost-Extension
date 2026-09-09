@@ -1,21 +1,10 @@
-import type { PlasmoCSConfig } from "plasmo";
+// 注意：这个 MAIN world 内容脚本在 Plasmo 构建产物中从未被注册进 manifest（dev/prod 均无），
+// 迁移到 WXT 后保持现状（未注册）。如需启用，将本文件移到 src/entrypoints/helper.content.ts
+// 并导出 defineContentScript({ matches, world: "MAIN", runAt: "document_start", main() {...} })。
 import { handleBilibiliImageUpload } from "./helper/bilibili";
 import { handleBlueskyImageUpload, handleBlueskyVideoUpload } from "./helper/bluesky";
 import { handleWeiboVideoUpload, prepareWeiboVideoInput } from "./helper/weibo";
 import { handleXiaoheiheImageUpload, handleXiaoheiheVideoUpload } from "./helper/xiaoheihe";
-
-export const config: PlasmoCSConfig = {
-  matches: [
-    "https://t.bilibili.com/*",
-    "https://bsky.app/*",
-    "https://www.v2ex.com/write*",
-    "https://v2ex.com/write*",
-    "https://www.xiaoheihe.cn/creator/editor/*",
-    "https://weibo.com/upload/channel*",
-  ],
-  world: "MAIN",
-  run_at: "document_start",
-};
 
 interface CodeMirrorElement extends HTMLDivElement {
   CodeMirror: {

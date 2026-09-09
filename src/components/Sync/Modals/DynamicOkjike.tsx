@@ -3,7 +3,7 @@ import { Input } from "@heroui/react";
 import { Plus, Settings } from "lucide-react";
 import type React from "react";
 import { useEffect, useState } from "react";
-import { getExtraConfig, saveExtraConfig } from "~sync/extraconfig";
+import { getExtraConfig, saveExtraConfig } from "../../../sync/extraconfig";
 
 interface OkjikeConfig {
   selectedTopic: string;

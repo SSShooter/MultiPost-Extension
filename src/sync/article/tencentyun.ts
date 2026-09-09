@@ -3,7 +3,7 @@
  *
  * This implementation keeps the DOM fill path.
  */
-import type { ArticleData, FileData, SyncData } from "~sync/common";
+import type { ArticleData, FileData, SyncData } from "../common";
 
 export async function ArticleTencentyun(data: SyncData) {
   const articleData = data.data as ArticleData;

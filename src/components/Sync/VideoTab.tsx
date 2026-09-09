@@ -17,12 +17,12 @@ import "video-react/dist/video-react.css";
 import { Icon } from "@iconify/react";
 import { Storage } from "@plasmohq/storage";
 import { useStorage } from "@plasmohq/storage/hook";
-import { ACCOUNT_INFO_STORAGE_KEY } from "~sync/account";
+import { ACCOUNT_INFO_STORAGE_KEY } from "../../sync/account";
 // import ReactPlayer from 'react-player';
-import type { FileData, SyncData } from "~sync/common";
-import type { PlatformInfo } from "~sync/common";
-import { getPlatformInfos } from "~sync/common";
-import { EXTRA_CONFIG_STORAGE_KEY } from "~sync/extraconfig";
+import type { FileData, SyncData } from "../../sync/common";
+import type { PlatformInfo } from "../../sync/common";
+import { getPlatformInfos } from "../../sync/common";
+import { EXTRA_CONFIG_STORAGE_KEY } from "../../sync/extraconfig";
 import PlatformCheckbox from "./PlatformCheckbox";
 
 interface VideoTabProps {

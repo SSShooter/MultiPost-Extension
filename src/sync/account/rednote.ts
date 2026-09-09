@@ -1,4 +1,4 @@
-import type { AccountInfo } from "~sync/common";
+import type { AccountInfo } from "../common";
 
 export async function getRednoteAccountInfo(): Promise<AccountInfo> {
   // 直接使用fetch API获取小红书页面HTML

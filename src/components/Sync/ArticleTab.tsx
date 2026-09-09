@@ -21,11 +21,11 @@ import { DownloadIcon, Eraser, ImagePlusIcon, XIcon } from "lucide-react";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import TurndownService from "turndown";
-import { ACCOUNT_INFO_STORAGE_KEY } from "~sync/account";
-import type { FileData, SyncData } from "~sync/common";
-import { getPlatformInfos } from "~sync/common";
-import type { PlatformInfo } from "~sync/common";
-import { EXTRA_CONFIG_STORAGE_KEY } from "~sync/extraconfig";
+import { ACCOUNT_INFO_STORAGE_KEY } from "../../sync/account";
+import type { FileData, SyncData } from "../../sync/common";
+import { getPlatformInfos } from "../../sync/common";
+import type { PlatformInfo } from "../../sync/common";
+import { EXTRA_CONFIG_STORAGE_KEY } from "../../sync/extraconfig";
 import PlatformCheckbox from "./PlatformCheckbox";
 
 interface ArticleTabProps {

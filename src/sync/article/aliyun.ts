@@ -4,7 +4,7 @@
  * Aliyun ARTICLE DOM path.
  */
 import TurndownService from "turndown";
-import type { ArticleData, FileData, SyncData } from "~sync/common";
+import type { ArticleData, FileData, SyncData } from "../common";
 
 export async function ArticleAliyun(data: SyncData) {
   const articleData = data.data as ArticleData;

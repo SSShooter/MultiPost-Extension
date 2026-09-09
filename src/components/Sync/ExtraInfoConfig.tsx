@@ -1,4 +1,4 @@
-import type { PlatformInfo, SyncData } from "~sync/common";
+import type { PlatformInfo, SyncData } from "../../sync/common";
 import ArticleWordpress from "./Modals/ArticleWordpress";
 import DynamicLinkedin from "./Modals/DynamicLinkedin";
 import DynamicOkjike from "./Modals/DynamicOkjike";

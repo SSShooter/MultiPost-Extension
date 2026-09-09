@@ -1,4 +1,4 @@
-import { type SyncData, type SyncDataPlatform, injectScriptsToTabs } from "~sync/common";
+import { type SyncData, type SyncDataPlatform, injectScriptsToTabs } from "../../sync/common";
 
 // Tab Manager || 标签页管理 || START
 export interface TabManagerMessage {

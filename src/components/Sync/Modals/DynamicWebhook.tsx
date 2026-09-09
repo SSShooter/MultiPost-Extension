@@ -2,7 +2,7 @@ import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from
 import { Input } from "@heroui/react";
 import { CheckCircle2, Plus, Settings, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { getExtraConfig, saveExtraConfig } from "~sync/extraconfig";
+import { getExtraConfig, saveExtraConfig } from "../../../sync/extraconfig";
 
 interface WebhookConfig {
   urls: string[];

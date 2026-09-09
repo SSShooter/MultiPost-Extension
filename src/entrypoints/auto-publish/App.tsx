@@ -1,5 +1,4 @@
-import "~style.css";
-import cssText from "data-text:~style.css";
+import "../../style.css";
 import {
   Button,
   Card,
@@ -18,27 +17,15 @@ import { useStorage } from "@plasmohq/storage/hook";
 import { BotIcon, FileImageIcon, HandIcon, SendIcon, TrashIcon, XIcon } from "lucide-react";
 import type React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import PlatformCheckbox from "~components/Sync/PlatformCheckbox";
-import { ACCOUNT_INFO_STORAGE_KEY } from "~sync/account";
-import { type FileData, type PlatformInfo, type SyncData, getPlatformInfos } from "~sync/common";
-import { EXTRA_CONFIG_STORAGE_KEY } from "~sync/extraconfig";
+import PlatformCheckbox from "../../components/Sync/PlatformCheckbox";
+import { ACCOUNT_INFO_STORAGE_KEY } from "../../sync/account";
+import { type FileData, type PlatformInfo, type SyncData, getPlatformInfos } from "../../sync/common";
+import { EXTRA_CONFIG_STORAGE_KEY } from "../../sync/extraconfig";
 
 const storage = new Storage({
   area: "local",
 });
 const STORAGE_KEY = "autoPublishPlatforms";
-
-export function getShadowContainer() {
-  return document.querySelector("#test-shadow").shadowRoot.querySelector("#plasmo-shadow-container");
-}
-
-export const getShadowHostId = () => "test-shadow";
-
-export const getStyle = () => {
-  const style = document.createElement("style");
-  style.textContent = cssText;
-  return style;
-};
 
 interface FormState {
   title: string;

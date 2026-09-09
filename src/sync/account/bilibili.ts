@@ -1,4 +1,4 @@
-import type { AccountInfo } from "~sync/common";
+import type { AccountInfo } from "../common";
 
 export async function getBilibiliAccountInfo(): Promise<AccountInfo> {
   // 访问Bilibili API获取用户信息

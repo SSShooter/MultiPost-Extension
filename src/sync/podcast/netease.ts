@@ -1,4 +1,4 @@
-import type { PodcastData, SyncData } from "~sync/common";
+import type { PodcastData, SyncData } from "../common";
 
 export async function PodcastNetease(data: SyncData) {
   function waitForElement(selector: string, timeout = 15000): Promise<Element> {

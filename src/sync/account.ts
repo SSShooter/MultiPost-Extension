@@ -1,5 +1,5 @@
 import { Storage } from "@plasmohq/storage";
-import { ping } from "~background/services/api";
+import { ping } from "../background/services/api";
 import { getAlipayAccountInfo } from "./account/alipay";
 import { getBilibiliAccountInfo } from "./account/bilibili";
 import { getChejiahaoAccountInfo } from "./account/chejiahao";

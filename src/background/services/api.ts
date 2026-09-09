@@ -1,5 +1,5 @@
 import { Storage } from "@plasmohq/storage";
-import { getPlatformInfos } from "~sync/common";
+import { getPlatformInfos } from "../../sync/common";
 
 const storage = new Storage({ area: "local" });
 
@@ -75,7 +75,7 @@ export const linkExtensionMessageHandler = (request, _sender, sendResponse) => {
     // 打开信任域名确认窗口
     chrome.windows
       .create({
-        url: chrome.runtime.getURL(`tabs/link-extension.html#${encodedParams}`),
+        url: chrome.runtime.getURL(`/link-extension.html#${encodedParams}`),
         type: "popup",
         width: 800,
         height: 600,
