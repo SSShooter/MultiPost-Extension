@@ -38,7 +38,8 @@ export async function DynamicLinkedin(data: SyncData) {
     labels: string[],
     root: Document | Element | ShadowRoot = document,
   ): HTMLButtonElement | null {
-    const buttons = Array.from(root.querySelectorAll("button")) as HTMLButtonElement[];
+    // 公司管理页弹窗里部分"按钮"是 div[role="button"]，一并纳入查找
+    const buttons = Array.from(root.querySelectorAll('button, [role="button"]')) as HTMLButtonElement[];
     for (const label of labels) {
       const lower = label.toLowerCase();
       const found = buttons.find((b) => {
@@ -52,35 +53,24 @@ export async function DynamicLinkedin(data: SyncData) {
     return null;
   }
 
+  // 媒体编辑弹层的容器：/sharing/compose 用 data-sdui-screen，公司管理页弹窗只有 role="dialog"
+  const dialogSelector = '[data-testid="dialog"], [data-sdui-screen*="sharing"], [role="dialog"], [role="alertdialog"]';
+  const editorSelector = 'div.tiptap.ProseMirror[contenteditable="true"], div[contenteditable="true"][role="textbox"]';
+
   try {
     const { title, content, images, videos } = data.data as DynamicData;
-
-    // LinkedIn 2025 年后改用 Tiptap/ProseMirror 编辑器，并放在 /sharing/compose 页面（含弹层）
-    const editor = (await waitForElement(
-      'div.tiptap.ProseMirror[contenteditable="true"], div[contenteditable="true"][role="textbox"]',
-      10000,
-    )) as HTMLDivElement;
-    await sleep(500);
-
-    console.debug("editor", editor);
-
-    // 输入文本：清空后插入，避免 ProseMirror 保留旧占位
-    editor.focus();
-    await sleep(200);
-    document.execCommand("selectAll", false, undefined);
-    document.execCommand("delete", false, undefined);
-    await sleep(200);
 
     const tags = (data.data as DynamicData).tags || [];
     const tagSuffix = tags.length ? ` ${tags.map((t) => `#${t}`).join(" ")}` : "";
     const textContent = title ? `${title}\n${content}${tagSuffix}` : `${content || ""}${tagSuffix}`;
-    document.execCommand("insertText", false, textContent);
-    editor.dispatchEvent(new Event("input", { bubbles: true }));
-    await sleep(300);
 
     // LinkedIn 不支持同一帖里同时含图片和视频；优先视频，其次图片，最多 8 个
+    // 注意：必须先传媒体再填文字 —— 公司管理页弹窗在上传媒体后会重渲染编辑器，先填的文字会被清空
     const mediaFiles = (videos?.length ? videos : images || []).slice(0, 8);
     if (mediaFiles.length > 0) {
+      // 先等分享弹窗的编辑器出现（公司管理页 ?share=true 会自动弹出）
+      await waitForElement(editorSelector, 10000);
+
       const mediaButton = findButtonByLabel(["Media", "媒体", "Add media", "添加媒体"]);
       if (!mediaButton) {
         console.debug("未找到 Media 按钮");
@@ -113,15 +103,15 @@ export async function DynamicLinkedin(data: SyncData) {
       fileInput.dispatchEvent(new Event("input", { bubbles: true }));
       console.debug("文件上传操作完成");
 
-      // 等待并处理图片编辑弹层（Next/Done）
-      await sleep(1000);
-      for (let i = 0; i < 20; i++) {
+      // 等待并处理媒体编辑弹层（Next/Done），公司页弹窗可能有多步，遇到就点
+      let dialogClicks = 0;
+      for (let i = 0; i < 30 && dialogClicks < 10; i++) {
         await sleep(500);
         const nextButton = findButtonByLabel(["Next", "下一步", "继续", "Done", "完成"]);
-        if (nextButton?.closest('[data-testid="dialog"], [data-sdui-screen*="sharing"]')) {
+        if (nextButton?.closest(dialogSelector)) {
           nextButton.click();
-          console.debug("点击了媒体编辑弹层的确认按钮");
-          break;
+          dialogClicks++;
+          console.debug("点击了媒体编辑弹层的确认按钮", { dialogClicks });
         }
       }
 
@@ -137,6 +127,83 @@ export async function DynamicLinkedin(data: SyncData) {
           break;
         }
       }
+    }
+
+    // 媒体处理完后再填文字。
+    // 公司管理页弹窗（share-box-v2）用的是 Quill 编辑器（ql-editor），传媒体后有短暂处理期，
+    // 期间编辑器可能被禁用或重挂载，所以采用"查找 → 聚焦 → 写入 → 校验 → 失败重试"循环
+    const findEditor = (): HTMLDivElement | null => {
+      const dialog = document.querySelector('[role="dialog"], [role="alertdialog"]');
+      const scope = dialog || document;
+      return (
+        (scope.querySelector(editorSelector) as HTMLDivElement) ||
+        (document.querySelector(editorSelector) as HTMLDivElement)
+      );
+    };
+
+    let inserted = false;
+    if (textContent.trim()) {
+      const marker = textContent
+        .replace(/\u00a0/g, " ")
+        .trim()
+        .slice(0, 20);
+      for (let attempt = 1; attempt <= 15 && !inserted; attempt++) {
+        const editor = findEditor();
+        if (!editor) {
+          console.debug(`第 ${attempt} 次未找到编辑器，等待重试`);
+          await sleep(1000);
+          continue;
+        }
+
+        // 确保焦点真正落在编辑器上（mousedown 触发编辑器视图聚焦）
+        editor.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
+        editor.dispatchEvent(new MouseEvent("mouseup", { bubbles: true }));
+        editor.focus();
+        await sleep(300);
+        const focused = document.activeElement === editor || editor.contains(document.activeElement);
+        if (!focused) {
+          console.debug(`第 ${attempt} 次焦点未落入编辑器`, document.activeElement);
+          await sleep(700);
+          continue;
+        }
+
+        // 仅当已有文字时才清空，避免 selectAll+delete 把弹窗里的其他内容一起删掉
+        if ((editor.textContent || "").replace(/\u00a0/g, " ").trim().length > 0) {
+          document.execCommand("selectAll", false, undefined);
+          document.execCommand("delete", false, undefined);
+          await sleep(200);
+        }
+
+        document.execCommand("insertText", false, textContent);
+        editor.dispatchEvent(new Event("input", { bubbles: true }));
+        await sleep(500);
+
+        const current = (editor.textContent || "").replace(/\u00a0/g, " ").trim();
+        if (current.includes(marker)) {
+          inserted = true;
+          console.debug(`第 ${attempt} 次写入成功`);
+          break;
+        }
+
+        // insertText 未生效，用 paste 事件兜底（Quill/ProseMirror 对 paste 兼容性都好）
+        console.debug(`第 ${attempt} 次 insertText 未生效（当前内容: ${current.slice(0, 40)}），改用 paste 兜底`);
+        const dt = new DataTransfer();
+        dt.setData("text/plain", textContent);
+        editor.dispatchEvent(new ClipboardEvent("paste", { clipboardData: dt, bubbles: true, cancelable: true }));
+        await sleep(500);
+        if (
+          (editor.textContent || "")
+            .replace(/\u00a0/g, " ")
+            .trim()
+            .includes(marker)
+        ) {
+          inserted = true;
+          console.debug(`第 ${attempt} 次 paste 兜底成功`);
+        } else {
+          await sleep(1000);
+        }
+      }
+      if (!inserted) console.error("文字写入失败：重试 15 次均未生效");
     }
 
     // 等待 Post 按钮可用

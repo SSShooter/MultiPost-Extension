@@ -25,6 +25,30 @@ export function hasRedditSubreddit(platform: SyncDataPlatform): boolean {
   return subreddit.length > 0;
 }
 
+// LinkedIn：配置公司 ID 后以公司主页身份发布（公司管理页自带分享弹窗）
+export interface LinkedinExtraConfig {
+  companyId?: string;
+}
+
+// 支持直接粘贴公司管理页链接，自动提取 /company/ 后面的 ID（数字 ID 或自定义 slug 均可）
+export function parseLinkedinCompanyId(input: string): string {
+  const value = (input || "").trim();
+  const fromUrl = value.match(/linkedin\.com\/company\/([^/?#]+)/i);
+  if (fromUrl) return fromUrl[1];
+  return value.replace(/^\/+|\/+$/g, "");
+}
+
+export function getLinkedinCompanyUrl(platform: SyncDataPlatform): string {
+  const config = (platform.extraConfig as LinkedinExtraConfig) || {};
+  const companyId = parseLinkedinCompanyId(config.companyId || "");
+  return `https://www.linkedin.com/company/${encodeURIComponent(companyId)}/admin/page-posts/published/?share=true`;
+}
+
+export function hasLinkedinCompanyId(platform: SyncDataPlatform): boolean {
+  const config = (platform.extraConfig as LinkedinExtraConfig) || {};
+  return parseLinkedinCompanyId(config.companyId || "").length > 0;
+}
+
 export interface SyncDataPlatform {
   name: string;
   injectUrl?: string;
@@ -177,6 +201,10 @@ export async function createTabsForPlatforms(data: SyncData) {
       } else {
         if (info.name === "DYNAMIC_REDDIT" && hasRedditSubreddit(info)) {
           tab = await chrome.tabs.create({ url: getRedditSubmitUrl(info) });
+        } else if (info.name === "DYNAMIC_LINKEDIN" && hasLinkedinCompanyId(info)) {
+          // 同步覆盖 injectUrl，保证后续"重新发布"等重载逻辑仍使用公司页地址
+          info.injectUrl = getLinkedinCompanyUrl(info);
+          tab = await chrome.tabs.create({ url: info.injectUrl });
         } else if (info.injectUrl) {
           tab = await chrome.tabs.create({ url: info.injectUrl });
         } else {

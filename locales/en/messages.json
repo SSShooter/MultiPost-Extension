@@ -896,6 +896,24 @@
   "extraConfigRedditSaveConfig": {
     "message": "Save Configuration"
   },
+  "extraConfigLinkedinConfigureCompany": {
+    "message": "Configure Company Page"
+  },
+  "extraConfigLinkedinSelectCompany": {
+    "message": "Post as Company"
+  },
+  "extraConfigLinkedinCompanyPrefix": {
+    "message": "Company: "
+  },
+  "extraConfigLinkedinEnterCompanyId": {
+    "message": "Enter company ID or paste the admin page URL (leave empty to post as yourself)"
+  },
+  "extraConfigLinkedinCancel": {
+    "message": "Cancel"
+  },
+  "extraConfigLinkedinSaveConfig": {
+    "message": "Save Configuration"
+  },
   "extraConfigWebhookConfigure": {
     "message": "Configure Webhook"
   },

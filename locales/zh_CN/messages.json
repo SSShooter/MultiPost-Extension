@@ -870,6 +870,24 @@
   "extraConfigRedditSaveConfig": {
     "message": "保存配置"
   },
+  "extraConfigLinkedinConfigureCompany": {
+    "message": "配置公司主页"
+  },
+  "extraConfigLinkedinSelectCompany": {
+    "message": "以公司身份发布"
+  },
+  "extraConfigLinkedinCompanyPrefix": {
+    "message": "公司："
+  },
+  "extraConfigLinkedinEnterCompanyId": {
+    "message": "输入公司 ID 或粘贴公司管理页链接（留空则用个人身份发布）"
+  },
+  "extraConfigLinkedinCancel": {
+    "message": "取消"
+  },
+  "extraConfigLinkedinSaveConfig": {
+    "message": "保存配置"
+  },
   "extraConfigWebhookConfigure": {
     "message": "配置Webhook"
   },
