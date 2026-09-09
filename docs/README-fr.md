@@ -47,7 +47,7 @@ pnpm i
 pnpm dev
 ```
 
-Dans la page des extensions du navigateur, activez le mode développeur, cliquez sur `Charger l'extension non empaquetée` et trouvez `build/chrome-mv3-dev` pour la charger.
+Dans la page des extensions du navigateur, activez le mode développeur, cliquez sur `Charger l'extension non empaquetée` et trouvez `.output/chrome-mv3` pour la charger.
 
 ## Construction de la version de production
 
@@ -57,7 +57,7 @@ Exécutez la commande suivante :
 pnpm build
 ```
 
-Vous trouverez le contenu de la construction dans le dossier `build`
+Vous trouverez le contenu de la construction dans le dossier `.output/chrome-mv3`
 
 ## Guide de développement
 
@@ -67,7 +67,7 @@ Vous trouverez le contenu de la construction dans le dossier `build`
 
 [Edge Extension](https://learn.microsoft.com/en-us/microsoft-edge/extensions-chromium/)
 
-[Plasmo Docs](https://docs.plasmo.com/)
+[WXT Docs](https://wxt.dev/)
 
 ## Articles recommandés
 

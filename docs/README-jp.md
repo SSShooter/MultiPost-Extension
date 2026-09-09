@@ -47,7 +47,7 @@ pnpm i
 pnpm dev
 ```
 
-ブラウザの拡張機能ページで開発者モードを有効にし、`パッケージ化されていない拡張機能を読み込む`をクリックして、`build/chrome-mv3-dev`を選択してロードします。
+ブラウザの拡張機能ページで開発者モードを有効にし、`パッケージ化されていない拡張機能を読み込む`をクリックして、`.output/chrome-mv3`を選択してロードします。
 
 ## プロダクションビルド
 
@@ -57,7 +57,7 @@ pnpm dev
 pnpm build
 ```
 
-`build`フォルダにビルドされたコンテンツが格納されます。
+`.output/chrome-mv3`フォルダにビルドされたコンテンツが格納されます。
 
 ## 開発ガイド
 
@@ -67,7 +67,7 @@ pnpm build
 
 [Edge Extension](https://learn.microsoft.com/en-us/microsoft-edge/extensions-chromium/)
 
-[Plasmo Docs](https://docs.plasmo.com/)
+[WXT Docs](https://wxt.dev/)
 
 ## おすすめの記事
 

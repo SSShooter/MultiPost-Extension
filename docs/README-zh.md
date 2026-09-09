@@ -47,7 +47,7 @@ pnpm i
 pnpm dev
 ```
 
-在浏览器扩展程序页面中打开开发者模式，点击 `加载已解压的扩展程序` 并找到 `build/chrome-mv3-dev` 进行加载。
+在浏览器扩展程序页面中打开开发者模式，点击 `加载已解压的扩展程序` 并找到 `.output/chrome-mv3` 进行加载。
 
 ## 构建生产版本
 
@@ -57,7 +57,7 @@ pnpm dev
 pnpm build
 ```
 
-你可以在 `build` 文件夹下找到构建内容
+你可以在 `.output/chrome-mv3` 文件夹下找到构建内容
 
 ## 开发说明
 
@@ -67,7 +67,7 @@ pnpm build
 
 [Edge Extension](https://learn.microsoft.com/en-us/microsoft-edge/extensions-chromium/)
 
-[Plasmo Docs](https://docs.plasmo.com/)
+[WXT Docs](https://wxt.dev/)
 
 ## 推荐文章
 

@@ -47,7 +47,7 @@ pnpm i
 pnpm dev
 ```
 
-브라우저 확장 프로그램 페이지에서 개발자 모드를 활성화하고 '압축해제된 확장 프로그램을 로드합니다'를 클릭하여 `build/chrome-mv3-dev`를 선택하여 로드합니다.
+브라우저 확장 프로그램 페이지에서 개발자 모드를 활성화하고 '압축해제된 확장 프로그램을 로드합니다'를 클릭하여 `.output/chrome-mv3`를 선택하여 로드합니다.
 
 ## 프로덕션 빌드
 
@@ -57,7 +57,7 @@ pnpm dev
 pnpm build
 ```
 
-`build` 폴더에서 빌드된 파일을 찾을 수 있습니다.
+`.output/chrome-mv3` 폴더에서 빌드된 파일을 찾을 수 있습니다.
 
 ## 개발 가이드
 
@@ -67,7 +67,7 @@ pnpm build
 
 [Edge Extension](https://learn.microsoft.com/en-us/microsoft-edge/extensions-chromium/)
 
-[Plasmo Docs](https://docs.plasmo.com/)
+[WXT Docs](https://wxt.dev/)
 
 ## 추천 기사
 

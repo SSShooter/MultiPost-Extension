@@ -4,13 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-MultiPost is a browser extension that enables one-click content publishing to multiple social media platforms. Built with Plasmo framework, it supports 30+ platforms including Zhihu, Weibo, Xiaohongshu, Bilibili, X, Instagram, and more.
+MultiPost is a browser extension that enables one-click content publishing to multiple social media platforms. Built with the WXT framework (Vite-based), it supports 30+ platforms including Zhihu, Weibo, Xiaohongshu, Bilibili, X, Instagram, and more.
 
 ## Development Commands
 
 ```bash
 pnpm dev          # Start development server with hot reload
-pnpm build        # Build and package extension for production
+pnpm build        # Build extension for production (output in .output/)
 pnpm lint         # Run ESLint
 pnpm lint:fix     # Auto-fix ESLint issues
 ```
@@ -61,7 +61,7 @@ Background script (`src/background/index.ts`) routes messages:
 
 ## Tech Stack
 
-- **Framework**: Plasmo 0.90.5 (Manifest V3)
+- **Framework**: WXT 0.20 + Vite 6 (Manifest V3)
 - **UI**: HeroUI + Tailwind CSS
 - **Icons**: lucide-react (prefer over @iconify/react)
 - **Storage**: @plasmohq/storage

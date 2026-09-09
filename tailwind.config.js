@@ -4,7 +4,6 @@ import { heroui } from "@heroui/react";
 module.exports = {
   content: ["./src/**/*.{tsx,html}", "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}"],
   darkMode: "class",
-  // prefix: "plasmo-",
   theme: {
     container: {
       center: true,

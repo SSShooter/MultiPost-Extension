@@ -1,9 +1,8 @@
 clean-dev:
-	rm -rf build/chrome-mv3-dev
+	rm -rf .output/chrome-mv3
 	pnpm dev
 
 
 clean-prod:
-	rm -rf build/chrome-mv3-prod
+	rm -rf .output/chrome-mv3
 	pnpm build
-	pnpm package
