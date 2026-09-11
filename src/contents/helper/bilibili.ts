@@ -1,4 +1,4 @@
-import { createdInputs } from ".";
+import { createdInputs } from "../helper";
 import { waitForElement } from "./common";
 
 let isProcessingImage = false;

@@ -1,6 +1,7 @@
-// 注意：这个 MAIN world 内容脚本在 Plasmo 构建产物中从未被注册进 manifest（dev/prod 均无），
-// 迁移到 WXT 后保持现状（未注册）。如需启用，将本文件移到 src/entrypoints/helper.content.ts
-// 并导出 defineContentScript({ matches, world: "MAIN", runAt: "document_start", main() {...} })。
+// 本模块由 src/entrypoints/helper.content.ts 以 MAIN world / document_start 注入，
+// 只在这几个编辑页生效（matches 定义见该入口文件）。
+// 各分支的调用方在 src/sync/{dynamic,video}/*.ts：隔离世界取到 File 后 postMessage 过来，
+// 由这里在页面环境里写进 input.files 并触发 change。
 import { handleBilibiliImageUpload } from "./helper/bilibili";
 import { handleBlueskyImageUpload, handleBlueskyVideoUpload } from "./helper/bluesky";
 import { handleWeiboVideoUpload, prepareWeiboVideoInput } from "./helper/weibo";

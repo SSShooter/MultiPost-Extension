@@ -62,6 +62,21 @@ export async function DynamicBluesky(data: SyncData) {
     );
   }
 
+  // bsky 处理贴进来的文件是异步的：change 之后约 1s 撰写框里才出现缩略图
+  // （[data-testid="selectedPhotoImage"] 每张一个）。不等它就点 Post，
+  // 结果是文字发出去了、图片没跟上。
+  async function checkImageAttached(expectedCount: number, maxAttempts = 30, interval = 1000): Promise<boolean> {
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      const attachedCount = document.querySelectorAll('[data-testid="selectedPhotoImage"]').length;
+      if (attachedCount >= expectedCount) {
+        console.log(`bsky 已贴入 ${attachedCount} 张图片`);
+        return true;
+      }
+      await new Promise((resolve) => setTimeout(resolve, interval));
+    }
+    return false;
+  }
+
   try {
     const { content, images, title } = data.data as DynamicData;
 
@@ -96,6 +111,7 @@ export async function DynamicBluesky(data: SyncData) {
     console.log("内容已输入:", content);
 
     const limitedImages = images.slice(0, 4);
+    let mediaAttached = true;
     if (limitedImages.length > 0) {
       const imageData = [];
       for (const file of limitedImages) {
@@ -108,10 +124,18 @@ export async function DynamicBluesky(data: SyncData) {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       window.postMessage({ type: "BLUESKY_IMAGE_UPLOAD", images: imageData }, "*");
+
+      mediaAttached = await checkImageAttached(limitedImages.length);
+      if (!mediaAttached) {
+        console.warn(`bsky 图片未确认贴入撰写框（预期 ${limitedImages.length} 张），跳过自动发布以免发出没有图的帖`);
+      }
     }
 
     // 发布动态
     if (data.isAutoPublish) {
+      if (!mediaAttached) {
+        return;
+      }
       const maxAttempts = 3;
       for (let attempt = 0; attempt < maxAttempts; attempt++) {
         const publishButton = findPublishButton();
