@@ -17,7 +17,6 @@ import { DynamicReddit } from "./dynamic/reddit";
 import { DynamicRednote } from "./dynamic/rednote";
 import { DynamicSubstack } from "./dynamic/substack";
 import { DynamicThreads } from "./dynamic/threads";
-import { DynamicToutiao } from "./dynamic/toutiao";
 import { DynamicToutiaohao } from "./dynamic/toutiaohao";
 import { DynamicV2EX } from "./dynamic/v2ex";
 import { DynamicWebhook } from "./dynamic/webhook";
@@ -201,17 +200,6 @@ export const DynamicInfoMap: Record<string, PlatformInfo> = {
     injectFunction: DynamicBaijiahao,
     tags: ["CN"],
     accountKey: "baijiahao",
-  },
-  DYNAMIC_TOUTIAO: {
-    type: "DYNAMIC",
-    name: "DYNAMIC_TOUTIAO",
-    homeUrl: "https://mp.toutiao.com/",
-    faviconUrl: "https://sf1-cdn-tos.toutiaostatic.com/obj/ttfe/pgcfe/sz/mp_logo.png",
-    platformName: chrome.i18n.getMessage("platformToutiao"),
-    injectUrl: "https://mp.toutiao.com/profile_v4/weitoutiao/publish",
-    injectFunction: DynamicToutiao,
-    tags: ["CN"],
-    accountKey: "toutiao",
   },
   DYNAMIC_THREADS: {
     type: "DYNAMIC",

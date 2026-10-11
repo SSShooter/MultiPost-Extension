@@ -31,7 +31,7 @@ export async function DynamicToutiaohao(data: SyncData) {
   }
 
   try {
-    const { content, images, tags } = data.data as DynamicData;
+    const { content, images, title, tags } = data.data as DynamicData;
 
     // 等待编辑器出现并输入内容
     await waitForElement('div[contenteditable="true"]');
@@ -44,8 +44,10 @@ export async function DynamicToutiaohao(data: SyncData) {
       return;
     }
 
+    // 更新编辑器内容，将标题和内容合并
     const tagSuffix = tags?.length ? ` ${tags.map((t) => `#${t}#`).join(" ")}` : "";
-    editor.innerText = `${content || ""}${tagSuffix}`;
+    const combinedContent = `${title ? `${title}\n\n` : ""}${content || ""}${tagSuffix}`;
+    editor.innerText = combinedContent;
     editor.focus();
     editor.dispatchEvent(new Event("input", { bubbles: true }));
     await new Promise((resolve) => setTimeout(resolve, 3000));
@@ -83,7 +85,7 @@ export async function DynamicToutiaohao(data: SyncData) {
 
         const dataTransfer = new DataTransfer();
         for (const image of images || []) {
-          if (!image.type.startsWith("image/")) {
+          if (!image.type?.startsWith("image/")) {
             console.debug("skip non-image file", image);
             continue;
           }
