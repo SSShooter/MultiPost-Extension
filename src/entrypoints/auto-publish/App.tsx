@@ -9,6 +9,8 @@ import {
   Image,
   Input,
   Switch,
+  Tab,
+  Tabs,
   Textarea,
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
@@ -44,6 +46,7 @@ export default function AutoPublish() {
     autoPublish: false,
   });
   const [platforms, setPlatforms] = useState<PlatformInfo[]>([]);
+  const [activeTab, setActiveTab] = useState<"CN" | "International">("CN");
   const [isPublishing, setIsPublishing] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
@@ -91,8 +94,14 @@ export default function AutoPublish() {
     loadPlatformInfos();
   }, [accountInfos, extraConfigMap]);
 
+  // 当前 tab 下选中的平台（只发送当前分组的平台）
+  const activeSelectedPlatforms = useMemo(() => {
+    const groupPlatformNames = platforms.filter((p) => p.tags?.includes(activeTab)).map((p) => p.name);
+    return formState.selectedPlatforms.filter((name) => groupPlatformNames.includes(name));
+  }, [platforms, activeTab, formState.selectedPlatforms]);
+
   const getSyncData = (): SyncData => ({
-    platforms: formState.selectedPlatforms.map((platform) => ({
+    platforms: activeSelectedPlatforms.map((platform) => ({
       name: platform,
       injectUrl: platforms.find((p) => p.name === platform)?.injectUrl || "",
       extraConfig: platforms.find((p) => p.name === platform)?.extraConfig || {},
@@ -114,7 +123,10 @@ export default function AutoPublish() {
       const newFiles = Array.from(selectedFiles)
         .filter((file) => file.type.startsWith("image/"))
         .map(handleFileProcess);
-      setFormState((prev) => ({ ...prev, images: [...prev.images, ...newFiles] }));
+      setFormState((prev) => ({
+        ...prev,
+        images: [...prev.images, ...newFiles],
+      }));
       event.target.value = "";
     },
     [handleFileProcess],
@@ -129,7 +141,10 @@ export default function AutoPublish() {
         if (item.kind === "file") {
           const file = item.getAsFile();
           if (file?.type.startsWith("image/")) {
-            setFormState((prev) => ({ ...prev, images: [...prev.images, handleFileProcess(file)] }));
+            setFormState((prev) => ({
+              ...prev,
+              images: [...prev.images, handleFileProcess(file)],
+            }));
           }
         }
       });
@@ -147,7 +162,10 @@ export default function AutoPublish() {
       const imageFiles = Array.from(files)
         .filter((file) => file.type.startsWith("image/"))
         .map(handleFileProcess);
-      setFormState((prev) => ({ ...prev, images: [...prev.images, ...imageFiles] }));
+      setFormState((prev) => ({
+        ...prev,
+        images: [...prev.images, ...imageFiles],
+      }));
     },
     [handleFileProcess],
   );
@@ -206,7 +224,10 @@ export default function AutoPublish() {
   );
 
   const handleDeleteImage = useCallback((index: number) => {
-    setFormState((prev) => ({ ...prev, images: prev.images.filter((_, i) => i !== index) }));
+    setFormState((prev) => ({
+      ...prev,
+      images: prev.images.filter((_, i) => i !== index),
+    }));
   }, []);
 
   const handleClearAll = useCallback(async () => {
@@ -227,7 +248,7 @@ export default function AutoPublish() {
       alert(chrome.i18n.getMessage("optionsEnterDynamicContent"));
       return;
     }
-    if (formState.selectedPlatforms.length === 0) {
+    if (activeSelectedPlatforms.length === 0) {
       alert(chrome.i18n.getMessage("optionsSelectPublishPlatforms"));
       return;
     }
@@ -237,7 +258,12 @@ export default function AutoPublish() {
     setNotice(chrome.i18n.getMessage("autoPublishTriggered"));
     try {
       await storage.set(STORAGE_KEY, formState.selectedPlatforms);
-      chrome.runtime.sendMessage({ action: "MULTIPOST_EXTENSION_PUBLISH", data });
+      chrome.runtime.sendMessage({
+        action: "MULTIPOST_EXTENSION_PUBLISH",
+        data,
+      });
+      // 发布后重置 isPublishing，页面可继续使用
+      setTimeout(() => setIsPublishing(false), 2000);
     } catch (error) {
       console.error("触发自动发布失败:", error);
       setIsPublishing(false);
@@ -251,22 +277,11 @@ export default function AutoPublish() {
     return (
       <Card className="shadow-none bg-default-50">
         <CardHeader className="flex items-center justify-between pb-0">
-          <div className="flex items-center gap-2">
-            <div className="w-8">
-              <Icon
-                icon={tag === "CN" ? "openmoji:flag-china" : "openmoji:globe-with-meridians"}
-                className="w-full h-max"
-              />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-sm font-semibold">
-                {chrome.i18n.getMessage(tag === "CN" ? "optionsCNPlatforms" : "optionsInternationalPlatforms")}
-              </span>
-              <span className="text-xs text-default-500">
-                {selectedInGroup.length}/{groupPlatforms.length}
-              </span>
-            </div>
-          </div>
+          <span className="text-xs text-default-500">
+            {chrome.i18n.getMessage("autoPublishCount", [selectedInGroup.length.toString()])}
+            {" / "}
+            {groupPlatforms.length}
+          </span>
           <div className="flex gap-1">
             <Button size="sm" variant="flat" onPress={() => handleSelectAllInGroup(tag)}>
               {chrome.i18n.getMessage("autoPublishSelectAll")}
@@ -320,7 +335,12 @@ export default function AutoPublish() {
                   isClearable
                   label={chrome.i18n.getMessage("optionsEnterDynamicContent")}
                   value={formState.content}
-                  onChange={(e) => setFormState((prev) => ({ ...prev, content: e.target.value }))}
+                  onChange={(e) =>
+                    setFormState((prev) => ({
+                      ...prev,
+                      content: e.target.value,
+                    }))
+                  }
                   variant="underlined"
                   minRows={6}
                   className="w-full"
@@ -389,18 +409,43 @@ export default function AutoPublish() {
                 {chrome.i18n.getMessage("optionsAutoPublish")}
               </Switch>
               <span className="text-xs text-default-500">
-                {chrome.i18n.getMessage("autoPublishCount", [formState.selectedPlatforms.length.toString()])}
+                {chrome.i18n.getMessage("autoPublishCount", [activeSelectedPlatforms.length.toString()])}
               </span>
             </div>
 
-            {renderPlatformGroup("CN")}
-            {renderPlatformGroup("International")}
+            <Tabs
+              aria-label="Platform Groups"
+              selectedKey={activeTab}
+              onSelectionChange={(key) => setActiveTab(key as "CN" | "International")}
+              variant="bordered"
+              classNames={{ tabList: "gap-0 w-full" }}>
+              <Tab
+                key="CN"
+                title={
+                  <span className="flex items-center gap-1">
+                    <Icon icon="openmoji:flag-china" className="w-4 h-4" />
+                    {chrome.i18n.getMessage("optionsCNPlatforms")}
+                  </span>
+                }>
+                {renderPlatformGroup("CN")}
+              </Tab>
+              <Tab
+                key="International"
+                title={
+                  <span className="flex items-center gap-1">
+                    <Icon icon="openmoji:globe-with-meridians" className="w-4 h-4" />
+                    {chrome.i18n.getMessage("optionsInternationalPlatforms")}
+                  </span>
+                }>
+                {renderPlatformGroup("International")}
+              </Tab>
+            </Tabs>
 
             <Button
               onPress={handlePublish}
               color="primary"
               variant="flat"
-              isDisabled={!formState.content || formState.selectedPlatforms.length === 0 || isPublishing}
+              isDisabled={!formState.content || activeSelectedPlatforms.length === 0 || isPublishing}
               className="w-full font-medium shadow-none">
               <SendIcon className="mr-2 size-4" />
               {chrome.i18n.getMessage("autoPublishPublish")}
